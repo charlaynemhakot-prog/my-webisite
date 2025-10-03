@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Timetable</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px; }
+    .card { background: #fff; padding: 20px; border-radius: 12px; max-width: 800px; margin:auto; box-shadow: 0 3px 6px rgba(0,0,0,0.1);}
+    h2 { text-align: center; color:#333; }
+    table { width:100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border:1px solid #ccc; padding:10px; text-align:center; }
+    th { background:#007bff; color:white; }
+    .week-selector { text-align:center; margin-bottom:20px; }
+    select { padding:8px; font-size:16px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2 id="title"></h2>
+    <div class="week-selector">
+      <label>Select Week: </label>
+      <select id="weekSelect">
+        <option value="1">Week 1</option>
+        <option value="2">Week 2</option>
+        <option value="3">Week 3</option>
+        <option value="4">Week 4</option>
+      </select>
+    </div>
+    <div id="timetableContainer"></div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    const course = urlParams.get("course");
+
+    const title = document.getElementById("title");
+    const weekSelect = document.getElementById("weekSelect");
+    const timetableContainer = document.getElementById("timetableContainer");
+
+    title.textContent = name + " - " + course + " Weekly Timetable";
+
+    // Example timetable data
+    const timetables = {
+      1: { Mon: "Anatomy Lecture", Tue: "Physiology Lab", Wed: "Pharmacology", Thu: "Public Health", Fri: "Self-study" },
+      2: { Mon: "Nursing Practice", Tue: "Anatomy Lab", Wed: "Physiology Lecture", Thu: "Pharmacology", Fri: "Research Project" },
+      3: { Mon: "Public Health Field Work", Tue: "Pharmacology Lab", Wed: "Anatomy Lecture", Thu: "Nursing Clinicals", Fri: "Group Discussion" },
+      4: { Mon: "Physiology Review", Tue: "Anatomy Revision", Wed: "Pharmacology Seminar", Thu: "Public Health Presentation", Fri: "Exams" }
+    };
+
+    function renderTimetable(week){
+      timetableContainer.innerHTML = `
+        <table>
+          <tr><th>Day</th><th>Activity</th></tr>
+          <tr><td>Monday</td><td>${timetables[week].Mon}</td></tr>
+          <tr><td>Tuesday</td><td>${timetables[week].Tue}</td></tr>
+          <tr><td>Wednesday</td><td>${timetables[week].Wed}</td></tr>
+          <tr><td>Thursday</td><td>${timetables[week].Thu}</td></tr>
+          <tr><td>Friday</td><td>${timetables[week].Fri}</td></tr>
+        </table>
+      `;
+    }
+
+    // Default load week 1
+    renderTimetable(1);
+
+    weekSelect.addEventListener("change", function(){
+      renderTimetable(this.value);
+    });
+  </script>
+
+</body>
+</html>

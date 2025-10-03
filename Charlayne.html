@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Course Registration</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px; }
+    form { background: #fff; padding: 20px; border-radius: 12px; max-width: 400px; margin:auto; box-shadow: 0 3px 6px rgba(0,0,0,0.1);}
+    input, select, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #ccc; }
+    button { background: #007bff; color: #fff; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Health Course Registration</h2>
+
+  <form id="registrationForm">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <select id="course" required>
+      <option value="">-- Select Health Course --</option>
+      <option value="Anatomy">Anatomy</option>
+      <option value="Physiology">Physiology</option>
+      <option value="Pharmacology">Pharmacology</option>
+      <option value="Public Health">Public Health</option>
+      <option value="Nursing">Nursing</option>
+    </select>
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const course = document.getElementById("course").value;
+
+      // Redirect with student details + course
+      window.location.href = "Courseoutline.html?name=" 
+        + encodeURIComponent(name) 
+        + "&email=" + encodeURIComponent(email) 
+        + "&course=" + encodeURIComponent(course);
+    });
+  </script>
+
+</body>
+</html>

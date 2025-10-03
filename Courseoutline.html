@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Outline</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px; }
+    .card { background: #fff; padding: 20px; border-radius: 12px; max-width: 600px; margin:auto; box-shadow: 0 3px 6px rgba(0,0,0,0.1);}
+    h2, h3 { text-align: center; color:#333; }
+    ul { line-height: 1.8; }
+    .btn { display:block; margin:20px auto; padding:12px; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer; text-align:center; width:200px; }
+    .btn:hover { background:#0056b3; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2 id="courseTitle"></h2>
+    <p id="studentInfo"></p>
+    <h3>Course Outline:</h3>
+    <ul id="outline"></ul>
+    <button class="btn" id="viewTimetable">View Weekly Timetable</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const course = urlParams.get("course");
+    const name = urlParams.get("name");
+    const email = urlParams.get("email");
+
+    const courseTitle = document.getElementById("courseTitle");
+    const studentInfo = document.getElementById("studentInfo");
+    const outline = document.getElementById("outline");
+    const viewTimetable = document.getElementById("viewTimetable");
+
+    const outlines = {
+      "Anatomy": ["Introduction to Human Anatomy", "Skeletal System", "Muscular System", "Nervous System", "Cardiovascular System"],
+      "Physiology": ["Cell Physiology", "Blood and Circulation", "Respiratory Physiology", "Renal Physiology", "Endocrine System"],
+      "Pharmacology": ["General Principles", "Drugs Acting on Nervous System", "Cardiovascular Drugs", "Antibiotics", "Chemotherapy"],
+      "Public Health": ["Principles of Epidemiology", "Communicable Diseases", "Environmental Health", "Nutrition and Health", "Health Policy"],
+      "Nursing": ["Fundamentals of Nursing", "Medical-Surgical Nursing", "Pediatric Nursing", "Maternity Nursing", "Community Health Nursing"]
+    };
+
+    if(course && outlines[course]){
+      courseTitle.textContent = course + " Outline";
+      studentInfo.textContent = "Student: " + name + " | Email: " + email;
+      outlines[course].forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        outline.appendChild(li);
+      });
+    } else {
+      courseTitle.textContent = "Course not found";
+    }
+
+    // Redirect to timetable page
+    viewTimetable.addEventListener("click", () => {
+      window.location.href = "timetable.html?name=" + encodeURIComponent(name) + "&course=" + encodeURIComponent(course);
+    });
+  </script>
+
+</body>
+</html>
